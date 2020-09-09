@@ -1,0 +1,31 @@
+version: '3.5'
+
+
+services:
+  tictactoe-back:
+    container_name: tictactoe-back
+    build:
+      context: .
+    env_file: 
+      - .env
+    ports:
+      - 8000:8000
+    volumes:
+      - ".:/app"
+      - "/app/node_modules"
+    external_links:
+      - tictactoe-mongo
+      # - tictactoe-redis
+      #
+      #
+  tictactoe-mongo:
+    container_name: tictactoe-mongo
+    image: "bitnami/mongodb:4.0"
+    volumes:
+      - "/bitnami"
+    env_file:
+      - .env
+    expose:
+      - "27017"
+
+
